@@ -3,6 +3,7 @@ import uvicorn
 from typing import List
 from pydantic import BaseModel
 from model import predict_model, train_model
+from genres import genre_mapping
 
 app = FastAPI()
 
@@ -17,7 +18,7 @@ async def root():
 async def predict_genre(music_features: MusicFeatures):
     features = music_features.features
     prediction = predict_model(features)
-    return {"predicted_genre": prediction}
+    return {"predicted_genre": prediction, "genre_mapping": genre_mapping.get(prediction)}
 
 @app.get("/train")
 async def train():
