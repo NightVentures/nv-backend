@@ -48,5 +48,5 @@ genre_mapping = {
     'contemporary country': 'country',
     'alternative r&b': 'r&b',
     'belgian edm': 'edm',
-    'irish singer-songwriter': 'singer-songwriter'
+    'irish singer-songwriter': 'country'
 }
