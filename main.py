@@ -17,7 +17,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 class MusicFeatures(BaseModel):
     features: List[List[float]]
 
