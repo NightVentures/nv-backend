@@ -10,7 +10,7 @@ def train_model():
     
     df = pd.read_csv('./music_data.csv', index_col = 0)
 
-    X = df.drop(['genre', 'artist', 'title', 'year','duration','dB','speachiness'], axis = 1).values
+    X = df.drop(['genre', 'artist', 'title', 'year','duration','dB','speechiness'], axis = 1).values
     y = df['genre'].values
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 21)
