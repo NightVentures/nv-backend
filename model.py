@@ -32,8 +32,8 @@ def predict_model(features):
     # make sure features is a 2d array
     features = np.array(features).reshape(1, -1)
 
-    # features = [bpm, energy, danceability, liveness, valence, acousticness, popularity]
-    
-    # test example in swagger api endpoint: 125, 69, 63, 67, 10, 0, 73
+    scaled_features = features / 100.0
 
-    return knn.predict(features)[0]
+    # features = [bpm, energy, danceability, liveness, valence, acousticness, popularity]
+
+    return knn.predict(scaled_features)[0]
