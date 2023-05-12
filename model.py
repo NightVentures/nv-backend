@@ -1,6 +1,6 @@
 import pandas as pd
-from sklearn.preprocessing import LabelEncoder
 import numpy as np
+from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
 
@@ -15,12 +15,16 @@ def train_model():
 
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 21)
 
+    scaler = MinMaxScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+
     knn = KNeighborsClassifier()
-    knn.fit(X_train, y_train)
+    knn.fit(X_train_scaled, y_train)
 
     pickle.dump(knn, open('model.pkl', 'wb'))
 
-    return 'Model Trained with Accuracy: ' + str(knn.score(X_test, y_test))
+    return 'Model Trained with Accuracy: ' + str(knn.score(X_test_scaled, y_test))
 
 def predict_model(features):
     knn = pickle.load(open('model.pkl', 'rb'))
