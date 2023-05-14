@@ -17,7 +17,6 @@ genre_mapping = {
     'indie pop': 'pop',
     'brostep': 'edm',
     'moroccan pop': 'pop',
-    'escape room': 'pop',
     'hip hop': 'hip-hop',
     'atl hip hop': 'hip-hop',
     'electropop': 'pop',

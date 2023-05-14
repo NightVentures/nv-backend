@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.model_selection import train_test_split
-from sklearn.neighbors import KNeighborsClassifier
+from sklearn.svm import SVC
 
 import pickle
 
@@ -13,27 +13,30 @@ def train_model():
     X = df.drop(['genre', 'artist', 'title', 'year','duration','dB','speechiness'], axis = 1).values
     y = df['genre'].values
 
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.2, random_state = 21)
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size = 0.3, random_state = 42)
 
     scaler = MinMaxScaler()
     X_train_scaled = scaler.fit_transform(X_train)
     X_test_scaled = scaler.transform(X_test)
 
-    knn = KNeighborsClassifier()
-    knn.fit(X_train_scaled, y_train)
+    svm_model = SVC(C=100)
 
-    pickle.dump(knn, open('model.pkl', 'wb'))
+    svm_model.fit(X_train_scaled, y_train)
 
-    return 'Model Trained with Accuracy: ' + str(knn.score(X_test_scaled, y_test))
+    pickle.dump(svm_model, open('model.pkl', 'wb'))
+
+    return 'Model Trained with Accuracy: ' + str(svm_model.score(X_test_scaled, y_test))
+
+# print(train_model())
 
 def predict_model(features):
-    knn = pickle.load(open('model.pkl', 'rb'))
+    svm_model = pickle.load(open('model.pkl', 'rb'))
 
     # make sure features is a 2d array
-    features = np.array(features).reshape(1, -1)
-
-    scaled_features = features / 100.0
+    features = np.array(features).reshape(1, -1) / 100
 
     # features = [bpm, energy, danceability, liveness, valence, acousticness, popularity]
 
-    return knn.predict(scaled_features)[0]
+    return svm_model.predict(features)[0]
+
+# print(predict_model([10,50,60,80,70,80,100]))
