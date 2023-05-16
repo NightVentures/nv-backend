@@ -18,7 +18,7 @@ app.add_middleware(
 )
 
 class MusicFeatures(BaseModel):
-    features: List[List[float]]
+    features: List[float]
 
 
 @app.get("/")
